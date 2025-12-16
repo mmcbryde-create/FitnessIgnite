@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lunaris — Ignite Your Fitness</title>
+  <meta name="description"
+    content="Lunaris — Arise to Fitness: High-energy workouts, guided plans, and a community that pushes you further.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050511;
+      /* Deep space blue/black */
+      --card: rgba(255, 255, 255, 0.03);
+      --primary: #FF2E93;
+      /* Hot Pink */
+      --secondary: #00F0FF;
+      /* Cyan */
+      --accent: #FFD600;
+      /* Electric Yellow */
+      --text-main: #ffffff;
+      --text-muted: #a0a0b0;
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --glow: 0 0 20px rgba(255, 46, 147, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 15% 50%, rgba(255, 46, 147, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.15), transparent 25%);
+      z-index: -1;
+      animation: pulseBg 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseBg {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-enter {
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      opacity: 0;
+    }
+
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.3s;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 46, 147, 0.4);
+      transform: rotate(-5deg);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .brand:hover .logo {
+      transform: rotate(0deg) scale(1.1);
+    }
+
+    .brand h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      background: linear-gradient(90deg, #fff, var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn {
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      padding: 10px 18px;
+      border-radius: 50px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .cta {
+      background: linear-gradient(90deg, var(--primary), #FF5E62);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(255, 46, 147, 0.4);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .cta:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(255, 46, 147, 0.6);
+    }
+
+    .cta.secondary {
+      background: linear-gradient(90deg, var(--secondary), #00C6FF);
+      box-shadow: 0 4px 20px rgba(0, 240, 255, 0.4);
+    }
+
+    .cta.secondary:hover {
+      box-shadow: 0 8px 30px rgba(0, 240, 255, 0.6);
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 450px;
+      gap: 40px;
+      align-items: center;
+      padding: 60px 0;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(255, 214, 0, 0.1);
+      color: var(--accent);
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 214, 0, 0.3);
+    }
+
+    .headline {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin: 0 0 20px 0;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .headline span {
+      color: var(--secondary);
+    }
+
+    .sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 30px;
+      max-width: 90%;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .stat {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      padding: 15px 25px;
+      border-radius: 16px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .stat:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    /* Hero Widget */
+    .hero-widget {
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 30px;
+      /* backdrop-filter: blur(10px); */
+      /* Perf check */
+      position: relative;
+    }
+
+    .hero-widget::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 60px;
+      height: 60px;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2300F0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>') no-repeat center/contain;
+      transform: rotate(15deg);
+      opacity: 0.5;
+    }
+
+    .widget-preview {
+      background: #000;
+      border-radius: 16px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .widget-preview::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      opacity: 0.2;
+    }
+
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+      z-index: 2;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Plans */
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+      margin-top: 80px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin: 0 0 10px;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .plan {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      padding: 32px;
+      border-radius: 24px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .plan:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .plan.popular {
+      background: linear-gradient(180deg, rgba(255, 46, 147, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+      border: 1px solid rgba(255, 46, 147, 0.3);
+    }
+
+    .badge {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--primary);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .price {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 16px 0;
+      letter-spacing: -1px;
+    }
+
+    .period {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .plan ul {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0;
+      color: var(--text-muted);
+    }
+
+    .plan li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .plan li::before {
+      content: '✓';
+      color: var(--secondary);
+      font-weight: 800;
+    }
+
+    .plan button {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: auto;
+    }
+
+    /* Features Grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 60px;
+    }
+
+    .feature {
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .feature:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--secondary);
+    }
+
+    .icon-box {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 240, 255, 0.1);
+      color: var(--secondary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--glass-border);
+      margin-top: 80px;
+      padding: 40px 0;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Lead Form */
+    .lead-form input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .lead-form input:focus {
+      outline: none;
+      border-color: var(--secondary);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .stats {
+        justify-content: center;
+      }
+
+      .hero-widget {
+        display: none;
+      }
+
+      /* Hide widget on mobile to save space or adjust */
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header class="animate-enter">
+      <div class="brand">
+        <div class="logo">LUNARIS</div>
+        <div>
+          <h1></h1>
+        </div>
+      </div>
+      <nav id="nav-links">
+        <a class="btn" href="#features">Features</a>
+        <a class="btn" href="#plans">Plans</a>
+        <a class="btn" href="login.html" id="loginBtn">Log In</a>
+        <a class="cta" href="signup.html" id="joinBtn">Join Now</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="animate-enter delay-1">
+          <div class="eyebrow">🚀 Ready to launch?</div>
+          <h1 class="headline">Ignite Your Body.<br><span>Arise To Fitness.</span></h1>
+          <p class="sub">Stop waiting for "someday". Lunaris brings workouts straight to you, gamified progress, and a
+            squad
+            that won't let you quit. <strong>Let's move.</strong></p>
+
+          <div class="hero-buttons">
+            <a class="cta" href="#plans">Start Free Trial ⚡</a>
+            <a class="btn" href="#features">Explore Workouts</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>120+</strong>
+              <span>Workouts</span>
+            </div>
+            <div class="stat">
+              <strong>Live</strong>
+              <span>Classes Daily</span>
+            </div>
+            <div class="stat">
+              <strong>30k</strong>
+              <span>Legends</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-widget animate-enter delay-2">
+          <div class="widget-preview">
+            <div class="play-btn">▶</div>
+          </div>
+          <h3 style="margin: 0 0 5px 0">Daily HIIT Blast</h3>
+          <div style="color:var(--text-muted); font-size:0.9rem; margin-bottom:15px">Today • 18 mins • High Intensity
+          </div>
+
+          <form id="leadForm" class="lead-form">
+            <label style="display:block; margin-bottom:8px; font-size:0.85rem; color:var(--text-muted)">Get the weekly
+              plan:</label>
+            <div style="display:flex; gap:8px">
+              <input type="email" id="email" placeholder="email@address.com" required>
+              <button type="submit" class="cta secondary" style="padding: 12px;">Go</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="features" class="animate-enter delay-3">
+        <div class="features">
+          <div class="feature">
+            <div class="icon-box">🔥</div>
+            <h3>HIT & Strength</h3>
+            <p class="sub" style="font-size:0.95rem; margin-bottom:0">Short, explosive sessions designed to burn max
+              calories in min time.</p>
+          </div>
+          <div class="feature">
+            <div class="icon-box">🧘</div>
+            <h3>Active Recovery</h3>
+            <p class="sub" style="font-size:0.95rem; margin-bottom:0">Flow it out. Mobility and yoga to keep you
+              injury-free and ready.</p>
+          </div>
+          <div class="feature">
+            <div class="icon-box">🏆</div>
+            <h3>Gamified Growth</h3>
+            <p class="sub" style="font-size:0.95rem; margin-bottom:0">Earn badges, hit streaks, and climb the
+              leaderboard.</p>
+          </div>
+          <div class="feature">
+            <div class="icon-box">🤝</div>
+            <h3>Squad Goals</h3>
+            <p class="sub" style="font-size:0.95rem; margin-bottom:0">Join a team. Earn together. Win together.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="plans">
+        <div class="section-header animate-enter delay-3">
+          <h2>Choose Your Fuel</h2>
+          <p class="sub" style="margin: 0 auto">Unlock your full potential with a plan that fits your pace.</p>
+        </div>
+
+        <div class="plans" role="list">
+          <!-- Free Plan -->
+          <article class="plan animate-enter delay-1" role="listitem">
+            <h3>Starter</h3>
+            <div class="price">$0 <span class="period">/ forever</span></div>
+            <ul>
+              <li>Daily 10-min boosters</li>
+              <li>Community forums</li>
+              <li>Daily challenges</li>
+              <li>Weekly challenges</li>
+            </ul>
+            <button class="btn" style="width:100%" onclick="selectPlan('Free')">Start Free</button>
+          </article>
+
+          <!-- Standard Plan -->
+          <article class="plan popular animate-enter delay-2" role="listitem">
+            <div class="badge">Most Popular</div>
+            <h3>Pro Athlete</h3>
+            <div class="price">$12 <span class="period">/ mo</span></div>
+            <ul>
+              <li><strong>Everything in Starter</strong></li>
+              <li>Full Workout Library (120+)</li>
+              <li>Custom Training Plan</li>
+              <li>Ad-free experience</li>
+            </ul>
+            <button class="cta secondary" onclick="selectPlan('Pro Athlete')">Go Pro</button>
+          </article>
+
+          <!-- Elite Plan -->
+          <article class="plan animate-enter delay-3" role="listitem">
+            <h3>Elite</h3>
+            <div class="price">$24 <span class="period">/ mo</span></div>
+            <ul>
+              <li><strong>Everything in Pro</strong></li>
+              <li>1:1 Coach Chat</li>
+              <li>Exclusive Live Events</li>
+              <li>Nutrition Guides</li>
+            </ul>
+            <button class="btn" style="width:100%" onclick="selectPlan('Elite')">Join Elite</button>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>Lunaris • Ignite Your Fitness • © <span id="year"></span></p>
+      <div style="display:flex; justify-content:center; gap:20px; margin-top:10px">
+        <a href="#" style="color:var(--text-muted); text-decoration:none">Privacy</a>
+        <a href="#" style="color:var(--text-muted); text-decoration:none">Terms</a>
+        <a href="#" style="color:var(--text-muted); text-decoration:none">Support</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Auth Check
+    const session = localStorage.getItem('lunaris_session');
+    if (session) {
+      const user = JSON.parse(session);
+      const nav = document.getElementById('nav-links');
+
+      // Replace buttons with user greeting
+      const loginBtn = document.getElementById('loginBtn');
+      const joinBtn = document.getElementById('joinBtn');
+      if (loginBtn) loginBtn.remove();
+      if (joinBtn) {
+        joinBtn.textContent = 'Hi, ' + user.name;
+        joinBtn.href = '#'; // Could go to profile
+        joinBtn.onclick = (e) => {
+          e.preventDefault();
+          if (confirm('Log out?')) {
+            localStorage.removeItem('lunaris_session');
+            window.location.reload();
+          }
+        };
+      }
+    }
+
+
+    function selectPlan(plan) {
+      const confirmed = confirm(`Ready to upgrade to ${plan}? Click OK to start your journey! 🚀`);
+      if (confirmed) {
+        alert(`Awesome! Redirecting you to checkout for the ${plan} plan.`);
+      }
+    }
+
+    document.getElementById('leadForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      if (email) {
+        alert(`Boom! 💥 Weekly plan sent to ${email}. Get ready to sweat!`);
+        this.reset();
+      }
+    });
+
+    // Add simple scroll reveal if requested, but CSS animation handles load nicely.
+  </script>
+</body>
+
+</html>
